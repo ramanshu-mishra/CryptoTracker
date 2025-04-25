@@ -16,7 +16,10 @@ Built in **react-redux**
 ![Screenshot 2025-04-25 213900](https://github.com/user-attachments/assets/bdbc9128-d98e-44ea-ac96-7bd2d65cb26b)
 
 ## mobile view 
-<img src="[!mobileview](https://github.com/user-attachments/assets/93bfba03-3230-4bb1-9bc9-f00873cfe340)" alt="drawing" width="200"/>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3de4fe53-e809-4697-8c80-8c594ed49455" width="300">
+</p>
+
 
 
 **Note: The tracking machanism is implemented using polling instead of webSockets due to unavailablility of websockets in free tier version of COIN-CAP API.**

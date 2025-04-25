@@ -39,5 +39,6 @@ const navBarSlice = createSlice({
 
 export const {changeVar} = navBarSlice.actions;
 export default navBarSlice.reducer;
+export type {navInterface}
 
 

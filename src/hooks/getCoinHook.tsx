@@ -13,11 +13,11 @@ export function useGetCoin(coins:string,delay: number){
         }
         const resData = await res.json();
         const finalData: (coinInterface[])= [];
+        
         resData.data.forEach((d: {id:string, name:string,symbol:string,rank:number,marketCapUsd:string,
             volumeUsd24Hr:string, priceUsd:string,changePercent24Hr:string,supply:string
         })=>{
-            const idx = d.marketCapUsd.indexOf(".");
-            const mp = d.marketCapUsd.slice(0, idx);
+            const mp = d.marketCapUsd.slice(0, d.marketCapUsd.indexOf("."));
             const sp = d.supply.slice(0, d.supply.indexOf("."));
             const pr = d.priceUsd.slice(0, d.priceUsd.indexOf(".")+5);
             const vl = d.volumeUsd24Hr.slice(0, d.volumeUsd24Hr.indexOf(".")+5);

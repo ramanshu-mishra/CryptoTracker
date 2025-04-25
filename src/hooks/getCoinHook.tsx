@@ -6,7 +6,7 @@ export function useGetCoin(coins:string,delay: number){
     const [data, setData] = useState<(coinInterface)[]>([]);
 
     async function fetchData(){
-        const res =await  fetch(`https://rest.coincap.io/v3/assets?apiKey=ae29f2215ca51e70f1b9fcad492b1d8af213bb48526329ca2a0c24e0049e7c70`);
+        const res =await  fetch(`https://rest.coincap.io/v3/assets?apiKey=63afd2f72f736fa9ebaa13d2e6729010f48ee04cbf7619527e3aa3ddc5c5ceb9`);
         if(!res.ok){
             setData([]);
             return;

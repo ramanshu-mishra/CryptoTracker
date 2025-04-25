@@ -1,6 +1,11 @@
 # CRYPTO-PRICE-TRACKER
 A simple application to fetch top-100 real time cryptocoin prices using COIN-CAP API 
 Built in **react-redux**
+**TechStack:** 
+
+ - React-Redux
+ - TypeScript
+ - TailwindCSS
 
 ![Screenshot 2025-04-25 213844](https://github.com/user-attachments/assets/30afe5ad-a39a-411a-ac20-532d24b3a770)
 
@@ -14,6 +19,13 @@ Built in **react-redux**
  6. circulating supply
 
 ![Screenshot 2025-04-25 213900](https://github.com/user-attachments/assets/bdbc9128-d98e-44ea-ac96-7bd2d65cb26b)
+## SETTTING UP
+
+ - clone the repository to your local pc 
+>  - git clone  {repo-link}
+- execute command 
+>npm install 
+>npm run dev
 
 ## mobile view 
 <p align="center">

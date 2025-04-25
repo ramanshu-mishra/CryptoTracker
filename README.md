@@ -1,54 +1,19 @@
-# React + TypeScript + Vite
+# CRYPTO-PRICE-TRACKER
+A simple application to fetch top-100 real time cryptocoin prices using COIN-CAP API 
+Built in **react-redux**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Screenshot 2025-04-25 213844](https://github.com/user-attachments/assets/30afe5ad-a39a-411a-ac20-532d24b3a770)
 
-Currently, two official plugins are available:
+## Filtering features based on
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ 1. Prices
+ 2. Rank
+ 3. MarketCap
+ 4. Volume Change in 24H
+ 5. %change in 24H
+ 6. circulating supply
 
-## Expanding the ESLint configuration
+![Screenshot 2025-04-25 213900](https://github.com/user-attachments/assets/bdbc9128-d98e-44ea-ac96-7bd2d65cb26b)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Note: The tracking machanism is implemented using polling instead of webSockets due to unavailablility of websockets in free tier version of COIN-CAP API.**
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```

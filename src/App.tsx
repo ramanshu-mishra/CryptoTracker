@@ -101,11 +101,18 @@ function Navbar({ searchTerm, setSearchTerm }: { searchTerm: string; setSearchTe
     handleSort(e, navbarVars[keys[e] as keyof navInterface]);
   }
   const isFirstLoad = useRef(true);
+  const firstError = useRef(false);
   useEffect(() => {
     if (!loading) {
       isFirstLoad.current = false;
     }
   }, [loading]);
+
+  useEffect(()=>{
+    if(error){
+      firstError.current = true;
+    }
+  }, [error]);
   
    if (loading && isFirstLoad.current) {
     return (
@@ -116,7 +123,7 @@ function Navbar({ searchTerm, setSearchTerm }: { searchTerm: string; setSearchTe
     );
   }
   
-  if (error) {
+  if (error && firstError) {
     return (
       <div className="flex flex-col items-center justify-center h-64 text-red-600">
         <div className="mb-2">Failed to load data.</div>

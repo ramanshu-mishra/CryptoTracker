@@ -11,7 +11,7 @@ export function useGetCoin(coins: string, delay: number) {
         setError(null);
         let res;
         try {
-            res = await fetch(`https://rest.coincap.io/v3/assets?apiKey=404c062de19d06ecb22611f16c5001fb979365911d8755a8aacb42bb3b8315b5`);
+            res = await fetch(`https://rest.coincap.io/v3/assets?apiKey=d56bfeba42819529c1f2a0983650afced7a97bdccf2c42aa1447631a372b59d1`);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
             setError(new Error("Network error"));

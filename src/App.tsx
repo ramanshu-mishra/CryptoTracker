@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { coinInterface } from "./Slices/coinSlice";
 import { useGetCoin } from "./hooks/getCoinHook";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,11 +8,15 @@ import { RootState } from "./store/store";
 import { setWidth } from "./Slices/widthSlice";
 import { CoinCard } from "./components/coinCard";
 import { Layout } from "./components/Layout";
+import { SearchBar } from "./components/searchBar";
+
+
 
 export default function App() {
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <Layout>
-      <Navbar />
+      <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
     </Layout>
   );
 }
@@ -45,10 +49,10 @@ function tabletModeCoins(coins: coinInterface[]) {
   }));
 }
 
-
-function Navbar() {
+// --- Navbar now accepts searchTerm and setSearchTerm ---
+function Navbar({ searchTerm, setSearchTerm }: { searchTerm: string; setSearchTerm: (val: string) => void }) {
   const dispatch = useDispatch();
-  const cns = useGetCoin("bitcoin,ethereum,tether,xrp,bnb,solana", 500);  
+  const { data: cns, loading, error } = useGetCoin("bitcoin,ethereum,tether,xrp,bnb,solana", 2000);   
   useEffect(() => {
     dispatch(setCoinsState({ newCoins: cns }));
   }, [cns, dispatch]);
@@ -57,6 +61,14 @@ function Navbar() {
   const navbarVars = useSelector((state: RootState) => state.navbar);
   let coin = filteredCoins(c);
 
+  // Filter coins by search term
+  if (searchTerm.trim() !== "") {
+    coin = coin.filter(
+      (cn) =>
+        cn.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        cn.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
 
   useEffect(() => {
     const handleResize = () => dispatch(setWidth({wt: window.innerWidth}));
@@ -88,10 +100,33 @@ function Navbar() {
     }
     handleSort(e, navbarVars[keys[e] as keyof navInterface]);
   }
+  const isFirstLoad = useRef(true);
+  useEffect(() => {
+    if (!loading) {
+      isFirstLoad.current = false;
+    }
+  }, [loading]);
   
-
+   if (loading && isFirstLoad.current) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mb-4"></div>
+        <div className="text-gray-700">Loading coins...</div>
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64 text-red-600">
+        <div className="mb-2">Failed to load data.</div>
+        <div className="text-xs">{error.message || String(error)}</div>
+      </div>
+    );
+  }
   return (
     <div className="w-full ">
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       {!isMobile && (
         <div className="w-[90vw] mx-auto grid grid-cols-[3%_5%_20%_10%_8%_8%_12%_12%_20%] text-xs md:text-sm font-semibold text-gray-400 dark:text-black py-3 border-b border-gray-700 ">
           <div className="text-center"></div>
@@ -106,7 +141,7 @@ function Navbar() {
         </div>
       )}
       {
-        isMobile && <select onChange={(e)=>handleMobileFilter(e.target.value as "r"|"p"|"h"|"m"|"v"|"s")}>
+        isMobile && <select className="bg-gray-500" onChange={(e)=>handleMobileFilter(e.target.value as "r"|"p"|"h"|"m"|"v"|"s")}>
             <option value="r">sort by rank</option>
             <option value="p">sort by price</option>
             <option value="h">sort by change24h</option>
@@ -124,6 +159,3 @@ function Navbar() {
     </div>
   );
 }
-
-
-

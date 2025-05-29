@@ -12,8 +12,9 @@ interface coinInterface{
     change24h: string
 }
 
-const initialState : {coins: coinInterface[], order: string} = {
+const initialState : {coins: coinInterface[], order: string, displaycoins: coinInterface[]} = {
     coins: [],
+    displaycoins: [],
     order: "R"
 }
 
@@ -26,10 +27,13 @@ const coinSlice = createSlice({
         },
         setOrder : (state, action: PayloadAction<{order:string}>)=>{
             state.order = action.payload.order
+        },
+        setDisplayCoins:(state, action: PayloadAction<{newCoins: coinInterface[]}>)=>{
+            state.displaycoins = action.payload.newCoins
         }
     }
 })
 
-export const {setCoinsState, setOrder} = coinSlice.actions;
+export const {setCoinsState, setOrder, setDisplayCoins} = coinSlice.actions;
 export type {coinInterface}
 export default coinSlice.reducer;
